@@ -14,7 +14,7 @@
 <div class="col-lg-12">
     <div class="card">
         <div class="card-body">
-            <h2 class="card-title">Jenis pengeluaran</h2>
+            <h2 class="card-title">Tambah tabungan</h2>
             <div class="basic-form">
                 <!-- lanjutan disini liat file lain hampir sama strukturnya -->
             </div>
