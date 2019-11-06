@@ -37,6 +37,8 @@
 						<div class="col-sm-4"><label></label></div>
                         <div class="basic-list-group col-sm-5">
                         	<ul class="list-group" id="show_tipe">
+                        		
+                        		<!-- tambahkan input hidden pada li saat generate tag li -->
                         	</ul>
                     	</div>
 					</div>

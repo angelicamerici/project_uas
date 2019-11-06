@@ -36,6 +36,9 @@ Route::get('/jenispengeluaran', function () {
     return view('jenisPengeluaran');
 });
 
+Route::get('kategori/create','KategoriController@create');
+Route::post('kategori/store','KategoriController@store');
+
 /*//jenis pengeluaran
 Route::get('/jenis_pengeluaran', 'pengeluaranController@index');
 
