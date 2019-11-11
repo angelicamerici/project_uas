@@ -36,6 +36,15 @@ Route::get('/jenispengeluaran', function () {
     return view('jenisPengeluaran');
 });
 
+Route::get('/tabungan/input', function () {
+    return view('inputWishlist');
+});
+
+Route::get('/tabungan', function () {
+    return view('wishlist');
+});
+
+
 Route::get('kategori/create','KategoriController@create');
 Route::post('kategori/store','KategoriController@store');
 
