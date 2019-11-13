@@ -42,15 +42,20 @@
         <div class="col-lg-2 col-sm-6">
         </div>
     </div>
-
+    @foreach($histori as $value)
     <div class="row">
         <div class="col-lg-2 col-sm-6">
         </div>
         <div class="col-lg-8 col-sm-6">
             <div class="card">
                 <div class="card-body">
-                    <h2 class="card-title">12 September, 2019</h2>
+                    <h2 class="card-title">{{$value->created_at}}</h2>
                     <div class="basic-form">
+                        <h2>{{$value->kategori_id}}</h2><br>
+                        @if($value->katspec_id!==null)
+                            <h5>{{$value->katspec_id}}</h5>
+                        @endif
+                        <h2>{{$value->nominal}}</h2>
                         <!-- lanjutan disini liat file lain hampir sama strukturnya -->
                     </div>
                 </div>
@@ -60,42 +65,7 @@
         <div class="col-lg-2 col-sm-6">
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-lg-2 col-sm-6">
-        </div>
-        <div class="col-lg-8 col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title">10 September, 2019</h2>
-                    <div class="basic-form">
-                        <!-- lanjutan disini liat file lain hampir sama strukturnya -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-2 col-sm-6">
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-lg-2 col-sm-6">
-        </div>
-        <div class="col-lg-8 col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <h2 class="card-title">8 September, 2019</h2>
-                    <div class="basic-form">
-                        <!-- lanjutan disini liat file lain hampir sama strukturnya -->
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="col-lg-2 col-sm-6">
-        </div>
-    </div>
-
+    @endforeach
+    
 </div>
 @endsection('content')

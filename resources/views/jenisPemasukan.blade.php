@@ -16,6 +16,11 @@
         <div class="card-body">
             <h2 class="card-title">Jenis pemasukan</h2>
             <div class="basic-form">
+                <ul> 
+                @foreach ($kategoris as $kategori)
+                    <li>{{ $kategori->name }}</li>
+                @endforeach
+                </ul>
                 <!-- lanjutan disini liat file lain hampir sama strukturnya -->
             </div>
         </div>

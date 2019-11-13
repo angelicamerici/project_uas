@@ -14,10 +14,10 @@ class CreateUsersWishlistsTable extends Migration
     public function up()
     {
         Schema::create('hiswishlists', function (Blueprint $table) {
-            $table->integer('userid')->unsigned();
-            $table->foreign('userid')->references('id')->on('users');
-            $table->integer('wishid')->unsigned();
-            $table->foreign('wishid')->references('id')->on('wishlists');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('wishlist_id')->unsigned();
+            $table->foreign('wishlist_id')->references('id')->on('wishlists');
             $table->integer('nominal');
             $table->timestamps();
         });

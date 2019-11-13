@@ -2,7 +2,7 @@
 
 /*
 |--------------------------------------------------------------------------
-| Web  Routes
+| Web Routes
 |--------------------------------------------------------------------------
 |
 | Here is where you can register web routes for your application. These
@@ -11,14 +11,14 @@
 |
 */
 
-Route::get('/','HistoriController@index');
+Route::get('/', function () {
+    return view('dashboard');
+});
+
 Route::get('/pengeluaran/create','HistoriController@create');
 Route::post('/pengeluaran/store','HistoriController@store');
 Route::get('/pemasukan/create','HistoriController@create');
 Route::post('/pemasukan/store','HistoriController@store');
-Route::get('/pengeluaran/input', function () {
-    return view('inputPengeluaran');
-});
 Route::get('/pemasukan/input', function () {
     return view('inputPemasukan');
 });
@@ -37,19 +37,9 @@ Route::get('/jenispengeluaran', function () {
     return view('jenisPengeluaran');
 });
 
-Route::get('/tabungan/input', function () {
-    return view('inputWishlist');
-});
-
-Route::get('/tabungan', function () {
-    return view('wishlist');
-});
-
-
 Route::get('kategori/create','KategoriController@create');
 Route::post('kategori/store','KategoriController@store');
-Auth::routes();
-Route::get('/home', 'HistoriController@index')->name('home');
+
 /*//jenis pengeluaran
 Route::get('/jenis_pengeluaran', 'pengeluaranController@index');
 
@@ -73,3 +63,6 @@ Route::post('jenis_pengeluaran/update/{id}','pemasukanController@update');
 Route::delete('jenis_pengeluaran/delete/{id}','pemasukanController@destroy');
 //pengeluaran
 //pemasukan*/
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

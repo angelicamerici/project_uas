@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Kategori;
-use App\Katspec;
-class KategoriController extends Controller
+use App\Histori;
+use App\Historikat;
+class HistoriController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,16 +15,25 @@ class KategoriController extends Controller
      */
     public function index(Request $request)
     {
-        $user = Auth::id();
-        if ($request->is('pemasukan/*')) {
-            $kategoris = Kategori::where('keterangan','pemasukan')->where('user_id',$user)->get();
-            return view('jenisPemasukan', ['kategoris' => $kategoris]);
-        }
-        elseif ($request->is('pengeluaran/*')) {
-            $kategoris = Kategori::where('keterangan','pemasukan')->where('user_id',$user)->get();
-            return view('jenisPengeluaran', ['kategoris' => $kategoris]);
-        }
 
+        // $kategoris = Histori::join('kategoris', 'katid', '=', 'kategoris.id')
+        //     ->select('historis.*', 'kategoris.name as katname')
+        //     ->get();
+        //    return view('dashboard', ['kategoris' => $kategoris]);
+        $userid = Auth::id();
+        $histori = Histori::where('user_id',$userid)->get();
+        foreach ($histori as $value) {
+            $kat = $value->kategori->name;
+            $value->kategori_id = $kat;
+            $saldo = $value->user->saldo;
+            $value->user_id=$saldo;
+            if($value->katspec_id!==null){
+                $katsp = $value->katspec->name;
+                $value->katspec_id = $katsp;
+            }
+        }
+        //dd($histori);
+        return view('dashboard', ['histori' => $histori]);
     }
 
     /**
@@ -35,11 +44,12 @@ class KategoriController extends Controller
     public function create(Request $request)
     {
         if ($request->is('pemasukan/*')) {
-            return view('inputMasterJenisPemasukan');
+            return view('inputPemasukan');
         }
         elseif ($request->is('pengeluaran/*')) {
-            return view('inputMasterJenisPengeluaran');
+            return view('inputPengeluaran');
         }
+        
     }
 
     /**
@@ -50,33 +60,26 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $mKategori = $request->get('kategori');
-        $ckat = $request->get('cKategori');
+        $katid = $request->get('katid');
+        $nominal = $request->get('nominal');
         $keterangan = $request->get('keterangan');
+        $kc = $request->get('katcid');
         $userid = Auth::id();
         
-        $newPage = new Kategori;
-        $newPage->name = $mKategori;
+        $newPage = new Histori;
+        $newPage->nominal = $nominal;
         $newPage->keterangan = $keterangan;
-        $newPage->userid = $userid;
+        $newPage->user_id = $userid;
+        $newPage->kategori_id =$katid;
+        $newPage->katspec_id=$kc;
 
         $newPage->save();
 
-
-
-        //get new id from last save
-        //$newid = bla bla bla
-        foreach ($ckat as $value) {
-            $newChild = new Katspec;
-            $newChild->name = $value;
-            $newChild->katid = $newPage->id;
-
-            $newChild->save();
-        }
-        
-        
-
-        return redirect('dashboard');//ganti redirect
+        $user = User::where('id',$user_id);
+        $user->saldo = (int)$user->saldo - (int)$nominal;
+        $user->save();
+        //belum update saldo
+        return redirect('/');
     }
 
     /**
